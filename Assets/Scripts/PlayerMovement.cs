@@ -6,37 +6,59 @@ using UnityEngine.InputSystem;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-
+        
     [SerializeField] public float speed;
     [SerializeField] public float jumpSpeed;
+    [SerializeField] Vector2 deathKick;
 
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator myAnimator;
-    CapsuleCollider2D capsuleCollider;
-    
+    CapsuleCollider2D myBodyCollider;
+    BoxCollider2D myFeet;
+
+
+    bool isAlive = true;
+
 
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        myBodyCollider = GetComponent<CapsuleCollider2D>();
+        myFeet = GetComponent<BoxCollider2D>();
     }
 
     void Update()
     {
+        if(!isAlive)
+        {
+            return;
+        }
         Run();
         FlipSprite();
+        Die();
     }   
+
+    
 
     void OnMove(InputValue value)
     {
+        if (!isAlive)
+        {
+            return;
+        }
         moveInput = value.Get<Vector2>();
     }
 
     void OnJump(InputValue value)
     {
-        if (!capsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!isAlive)
+        {
+            return;
+        }
+
+        if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             return;
         }
@@ -56,12 +78,23 @@ public class NewBehaviourScript : MonoBehaviour
         myAnimator.SetBool("isRunning", playerHasHorizontalSpeed);
     }
 
+
     void FlipSprite()
     {
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
         if (playerHasHorizontalSpeed)
         {
             transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x), 1f);
+        }
+    }
+
+    void Die()
+    {
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+            myAnimator.SetTrigger("Dying");
+            myRigidbody.velocity = deathKick;
         }
     }
 }
