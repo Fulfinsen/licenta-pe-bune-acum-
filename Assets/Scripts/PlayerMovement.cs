@@ -90,11 +90,12 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Die()
     {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards", "Enemies")))
         {
             isAlive = false;
             myAnimator.SetTrigger("Dying");
             myRigidbody.velocity = deathKick;
+            FindObjectOfType<GameSession>().processPlayerDeath();
         }
     }
 }
