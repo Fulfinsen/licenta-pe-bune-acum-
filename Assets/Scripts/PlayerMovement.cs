@@ -10,6 +10,7 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] public float jumpSpeed;
     [SerializeField] Vector2 deathKick;
+    [SerializeField] float delay;
 
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
@@ -96,6 +97,7 @@ public class NewBehaviourScript : MonoBehaviour
             myAnimator.SetTrigger("Dying");
             myRigidbody.velocity = deathKick;
             FindObjectOfType<GameSession>().processPlayerDeath();
+
         }
     }
 }
