@@ -22,7 +22,7 @@ public class LevelExit : MonoBehaviour
         var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
 
-        if(nextSceneIndex + 1 ==  SceneManager.sceneCountInBuildSettings)
+        if(nextSceneIndex ==  SceneManager.sceneCountInBuildSettings)
         {
             nextSceneIndex = 0;
         }
