@@ -15,6 +15,7 @@ public class CoinPickUp : MonoBehaviour
     {
         if(collision.tag == "Player" && !wasCollected)
         {
+            wasCollected = true; //comenteaza-l ca bug
             FindObjectOfType<GameSession>().increaseScore(pointsPickUp);
             AudioSource.PlayClipAtPoint(coinSfx, Camera.main.transform.position);
             gameObject.SetActive(false);

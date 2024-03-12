@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinSfx: {fileID: 8300000, guid: dd759624df36a714c9c0b7f14a4709cd, type: 3}
+  pointsPickUp: 100
 --- !u!82 &4731612248328005129
 AudioSource:
   m_ObjectHideFlags: 0
