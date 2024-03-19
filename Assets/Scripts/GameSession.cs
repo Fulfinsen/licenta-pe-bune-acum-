@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-
+    public GameOverScreen gameOverScreen;
     [SerializeField] int playerLives = 3;
     [SerializeField] int score = 0;
 
@@ -38,6 +38,11 @@ public class GameSession : MonoBehaviour
     {
         score += pointsToAdd;
         scoreText.text = score.ToString();
+    }
+    
+    public void GameOver()
+    {
+        gameOverScreen.Setup(score);
     }
 
     public void processPlayerDeath()
